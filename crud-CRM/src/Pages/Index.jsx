@@ -1,9 +1,13 @@
 import LoadingScreen from "../Components/LoadingScreen/loadingScreen";
+import Footer from "../Components/Footer/footer";
+import Header from "../Components/Header/header";
 
 const App = () => {
     return (
         <>
-            <LoadingScreen />
+        <Header/>
+        <LoadingScreen/>
+        <Footer/>
         </>
     );
 };

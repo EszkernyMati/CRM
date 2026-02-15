@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from "react";
 import "./loadingScreen.css";
 
-function LoadingScreen(){
+const LoadingScreen = () =>{
      const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
