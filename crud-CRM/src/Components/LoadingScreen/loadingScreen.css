@@ -1,0 +1,74 @@
+/* Main colors that will be used in this project */
+
+:root {
+  --color-primary-dark-navy: hsl(222, 47%, 11%);
+  --color-secondary-grey-blue: hsl(215, 25%, 27%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-background-light: hsl(210, 40%, 98%);
+  --color-text-dark: hsl(222, 47%, 15%);
+  --color-text-light: hsl(210, 20%, 98%);
+  --color-accent-blue: hsl(217, 91%, 60%);
+  --color-accent-blue-hover: hsl(217, 91%, 50%);
+  --color-status-success: hsl(150, 100%, 33%);
+  --color-status-error: hsl(0, 84%, 60%);
+  --color-status-warning: hsl(38, 92%, 50%);
+  --color-border-subtle: hsl(214, 32%, 91%);
+  --shadow-color: hsla(222, 47%, 11%, 0.05);
+  --shadow-color-strong: hsla(222, 47%, 11%, 0.15);
+  --shadow-light: 0 2px 4px var(--shadow-color);
+  --shadow-mid: 0 8px 16px -4px var(--shadow-color);
+  --shadow-strong: 0 10px 25px -5px var(--shadow-color-strong);
+  --color-group-change-blue: hsl(199, 89%, 48%);
+  --color-group-change-blue-hover: hsl(199, 89%, 40%);
+}
+
+/* ----------------------------------------------------------------- */
+
+
+/* Basic styles for the LoadingScreen */
+
+.loading-overlay{
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: var(--color-primary-dark-navy);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+transition: opacity 0.5s ease-out;
+}
+.loading-text{
+color: var(--color-white);
+font-size: 1.2em;
+font-weight: 600;
+}
+.loading-bar-container{
+width: 80%;
+max-width: 400px;
+height: 6px;
+background-color: rgba(255, 255, 255, 0.15);
+border-radius: 3px;
+overflow: hidden;
+}
+.loading-bar{
+height: 100%;
+width: 0;
+background-color: var(--color-accent-blue);
+border-radius: 3px;
+animation: loading-fill 0.5s linear forwards;
+}
+
+/* This is the animation, which loads the loadingScreen */
+@keyframes loading-fill{
+0%{
+width: 0%;
+}
+100%{
+width: 100%;
+}
+}
+/* ----------------------------------------------------------------- */
