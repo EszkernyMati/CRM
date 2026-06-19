@@ -1,0 +1,273 @@
+@import "../styles/variables.css";
+
+/* Główny kontener - czysty podział na kalendarz i sidebar */
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Sekcja kalendarza jako spójna, elegancka karta */
+.calendar-main {
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-light);
+}
+
+/* Nawigacja nad kalendarzem */
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.calendar-nav h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+}
+
+/* Siatka kalendarza - równe odstępy, brak efektu rozjeżdżania */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+/* Nagłówki dni tygodnia (Pn, Wt...) - idealnie wycentrowane */
+.calendar-day-header {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Komórka dnia - teraz działa jako elastyczny kontener */
+.calendar-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Numer na górze, reszta na dole */
+  min-height: 110px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.02); /* Bardzo subtelne tło */
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast) ease-in-out;
+}
+
+/* Puste dni z poprzedniego/następnego miesiąca */
+.calendar-cell.empty {
+  background: rgba(0, 0, 0, 0.15);
+  border-color: transparent;
+  opacity: 0.4;
+}
+
+/* Dzisiejszy dzień - wyróżniający się, ale minimalistyczny */
+.calendar-cell.today {
+  border-color: var(--color-accent-blue);
+  background: rgba(33, 150, 243, 0.08);
+  box-shadow: 0 0 12px rgba(33, 150, 243, 0.15);
+}
+
+/* Hover na dniach, które mają interakcję */
+.calendar-cell:not(.empty):hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-text-muted);
+  transform: translateY(-1px); /* Subtelne uniesienie */
+}
+
+/* Numer dnia */
+.cell-day {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  align-self: flex-start; /* Zawsze do lewego górnego rogu */
+}
+
+.calendar-cell.today .cell-day {
+  color: var(--color-white);
+  background: var(--color-accent-blue);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Kontener na wydarzenia wewnątrz komórki */
+.cell-events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* Wygląd pojedynczego paska wydarzenia - czysty, kapsułkowy design */
+.cell-event {
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Kolorystyka wydarzeń z ciemnym motywem (dobre kontrasty, brak "żarówy") */
+.event-meeting {
+  background: rgba(33, 150, 243, 0.12);
+  color: #64b5f6;
+  border-left: 3px solid var(--color-accent-blue);
+}
+
+.event-internal {
+  background: rgba(255, 152, 0, 0.12);
+  color: #ffb74d;
+  border-left: 3px solid var(--color-status-warning);
+}
+
+.event-public {
+  background: rgba(76, 175, 80, 0.12);
+  color: #81c784;
+  border-left: 3px solid var(--color-status-success);
+}
+
+/* "+ X więcej" */
+.cell-more {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding-left: 4px;
+}
+
+/* =========================================
+   SIDEBAR (NADCHODZĄCE WYDARZENIA)
+   ========================================= */
+.upcoming-list {
+  padding: 0;
+  margin: 0;
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+}
+
+/* Pojedynczy element listy w sidebaze */
+.upcoming-item {
+  display: flex;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color var(--transition-fast);
+}
+
+.upcoming-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.upcoming-item:last-child {
+  border-bottom: none;
+}
+
+/* Kropka statusu z delikatnym glow */
+.upcoming-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.upcoming-dot.event-meeting { background: var(--color-accent-blue); box-shadow: 0 0 8px var(--color-accent-blue); }
+.upcoming-dot.event-internal { background: var(--color-status-warning); box-shadow: 0 0 8px var(--color-status-warning); }
+.upcoming-dot.event-public { background: var(--color-status-success); box-shadow: 0 0 8px var(--color-status-success); }
+
+/* Teksty w sidebarze */
+.upcoming-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.upcoming-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1.4;
+}
+
+.upcoming-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.upcoming-attendees {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: 2px;
+}
+
+/* =========================================
+   RESPONSYWNOŚĆ
+   ========================================= */
+@media (max-width: 1100px) {
+  .calendar-layout {
+    grid-template-columns: 1fr; /* Sidebar spada na dół na tabletach */
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-main {
+    padding: 16px;
+  }
+  
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-cell {
+    min-height: 80px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cell-event {
+    display: none; /* Ukrywamy paski tekstu na małych telefonach */
+  }
+
+  .calendar-cell {
+    min-height: 50px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cell-day {
+    align-self: center;
+  }
+
+  /* Kropka zamiast tekstu wydarzenia na mobile */
+  .calendar-cell.has-events::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent-blue);
+    border-radius: 50%;
+    margin-top: 4px;
+  }
+}

@@ -1,21 +1,15 @@
-
-import React,{useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import "./loadingScreen.css";
 
-const LoadingScreen = () =>{
-     const [isLoading, setIsLoading] = useState(true);
+const LoadingScreen = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-
-    
+    const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
-    
     return (
       <div className="loading-overlay">
         <div className="loading-bar-container">
@@ -25,5 +19,8 @@ const LoadingScreen = () =>{
       </div>
     );
   }
-}
+
+  return children;
+};
+
 export default LoadingScreen;

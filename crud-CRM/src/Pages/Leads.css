@@ -1,0 +1,135 @@
+.leads-pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.pipeline-column {
+  min-height: 200px;
+}
+
+.pipeline-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.pipeline-column-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.pipeline-count {
+  background: var(--color-background-light);
+  color: var(--color-text-muted);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.pipeline-cards {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lead-card {
+  padding: 14px;
+  background: var(--color-background-light);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.lead-card:hover {
+  box-shadow: var(--shadow-light);
+  transform: translateY(-1px);
+}
+
+.lead-card h4 {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.lead-contact {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.lead-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.lead-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent-blue);
+}
+
+.lead-score {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.score-high {
+  background: var(--color-status-success-light);
+  color: var(--color-status-success);
+}
+
+.score-mid {
+  background: var(--color-status-warning-light);
+  color: var(--color-status-warning);
+}
+
+.score-low {
+  background: var(--color-status-error-light);
+  color: var(--color-status-error);
+}
+
+.lead-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.pipeline-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  padding: 20px;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .leads-pipeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .leads-pipeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lead-actions,
+.deal-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}

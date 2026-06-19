@@ -1,57 +1,281 @@
-/* Main colors that will be used in this project */
+@import "../../styles/variables.css";
 
-:root {
-  --color-primary-dark-navy: hsl(222, 47%, 11%);
-  --color-secondary-grey-blue: hsl(215, 25%, 27%);
-  --color-white: hsl(0, 0%, 100%);
-  --color-background-light: hsl(210, 40%, 98%);
-  --color-text-dark: hsl(222, 47%, 15%);
-  --color-text-light: hsl(210, 20%, 98%);
-  --color-accent-blue: hsl(217, 91%, 60%);
-  --color-accent-blue-hover: hsl(217, 91%, 50%);
-  --color-status-success: hsl(150, 100%, 33%);
-  --color-status-error: hsl(0, 84%, 60%);
-  --color-status-warning: hsl(38, 92%, 50%);
-  --color-border-subtle: hsl(214, 32%, 91%);
-  --shadow-color: hsla(222, 47%, 11%, 0.05);
-  --shadow-color-strong: hsla(222, 47%, 11%, 0.15);
-  --shadow-light: 0 2px 4px var(--shadow-color);
-  --shadow-mid: 0 8px 16px -4px var(--shadow-color);
-  --shadow-strong: 0 10px 25px -5px var(--shadow-color-strong);
-  --color-group-change-blue: hsl(199, 89%, 48%);
-  --color-group-change-blue-hover: hsl(199, 89%, 40%);
+header {
+  background-color: var(--color-primary-dark-navy);
+  color: var(--color-white);
+  padding: 0 24px;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-light);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
 }
 
-/* ----------------------------------------------------------------- */
-
-
-/* Basic styles for header */
-
-header{
-background-color: var(--color-primary-dark-navy);
-color: var(--color-white);
-padding: 20px 40px;
-box-shadow: var(--shadow-strong);
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-box-sizing: border-box;
-display: flex;
-justify-content: space-between;
-align-items: center;
-z-index: 1000;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
-header h1{
-margin: 0;
-font-size: 1.6em;
-font-weight: 600;
-letter-spacing: 1px;
-transition: text-shadow 0.3s ease, color 0.3s ease;
-cursor: pointer;
+
+.header-menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  transition: background-color var(--transition-fast);
 }
-header h1:hover{
-color: var(--color-accent-blue);
-text-shadow: 0 0 10px hsla(204, 70%, 53%, 0.5);
+
+.header-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
-/* ----------------------------------------------------------------- */
+
+.menu-icon {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--color-white);
+  position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: var(--color-white);
+}
+
+.menu-icon::before { top: -6px; }
+.menu-icon::after { top: 6px; }
+
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: text-shadow var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+}
+
+header h1:hover {
+  color: var(--color-accent-blue);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header-action-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.header-action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-white);
+}
+
+.notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-status-error);
+  border: 2px solid var(--color-primary-dark-navy);
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.header-user:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-white);
+}
+
+.header-user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .header-menu-btn {
+    display: flex;
+  }
+
+  header {
+    padding: 0 16px;
+    padding-left: 60px;
+  }
+
+  .header-user-name {
+    display: none;
+  }
+
+  .search-bar {
+    display: none;
+  }
+}
+
+/* =========================================
+   HIGH-CONTRAST DROPDOWN (ZAMIANA NA CIEMNY)
+   ========================================= */
+.header-user-menu {
+  position: relative;
+}
+
+.header-user-chevron {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+.header-user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-strong);
+  min-width: 240px;
+  z-index: 2000;
+  overflow: hidden;
+  animation: dropdownIn 0.15s ease-in-out;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent-blue);
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.dropdown-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown-user-name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-user-role {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--color-border-subtle);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background-color: var(--color-background-light);
+  color: var(--color-white);
+}
+
+.dropdown-logout {
+  color: var(--color-status-error);
+}
+
+.dropdown-logout:hover {
+  background-color: var(--color-status-error-light);
+  color: var(--color-status-error);
+}
+
+.header-user-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1999;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 4px;
+  }
+
+  .header-user-dropdown {
+    right: -8px;
+  }
+}

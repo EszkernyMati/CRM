@@ -1,0 +1,102 @@
+@import "../../styles/variables.css";
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: hsla(0, 0%, 0%, 0.6); /* Ciemniejsza, bardziej neutralna powłoka */
+  backdrop-filter: blur(4px);        /* Nowoczesny, profesjonalny efekt rozmycia tła */
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-content {
+  background: var(--color-secondary-grey-blue); /* Ciemne tło zamiast bieli */
+  border: 1px solid var(--color-border-subtle);   /* Wyraźna ramka odcinająca modal od reszty interfejsu */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-md {
+  max-width: 560px;
+}
+
+.modal-lg {
+  max-width: 720px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: rgba(0, 0, 0, 0.15); /* Subtelne odcięcie nagłówka */
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-white); /* Maksymalny kontrast dla tytułu */
+  letter-spacing: -0.02em;
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: var(--color-background-light);
+  color: var(--color-white); /* Rozjaśnienie zamiast przyciemnienia na hover */
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sekcja detali/podglądu wewnątrz modala */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px 24px;
+  align-items: baseline;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-weight: 600; /* Pogrubienie dla lepszej czytelności etykiet */
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  color: var(--color-text-light); /* Zmiana z ciemnego na jasny, czytelny tekst */
+  line-height: 1.5;
+}

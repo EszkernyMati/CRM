@@ -1,0 +1,359 @@
+@import "../styles/variables.css";
+
+/* =========================================
+   GŁÓWNY UKŁAD (SETTINGS LAYOUT)
+   ========================================= */
+.settings-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px; /* Zwiększony odstęp dla lepszego oddechu enterprise */
+  align-items: start;
+  padding: 0;
+  width: 100%;
+}
+
+/* Sidebar z zakładkami */
+.settings-tabs {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 6px;
+}
+
+.settings-tab {
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.settings-tab:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-light);
+}
+
+.settings-tab.active {
+  background: rgba(33, 150, 243, 0.08);
+  color: var(--color-accent-blue);
+  font-weight: 600;
+}
+
+/* =========================================
+   SEKCJA TREŚCI I PANELU
+   ========================================= */
+.settings-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Usunięto niepoprawny margin-left, teraz wszystko idealnie wyrównuje się do krawędzi */
+.settings-panel h2 {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+}
+
+/* Profil jako spójna, elegancka karta */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 8px;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-accent-blue);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  box-shadow: 0 0 16px rgba(33, 150, 243, 0.25);
+}
+
+/* Button "Zmień zdjęcie" lub akcji przy profilu */
+.profile-header button {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-light);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+}
+
+.profile-header button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  border-color: var(--color-text-muted);
+}
+
+/* =========================================
+   FORMULARZE I POLA INPUT (FORM)
+   ========================================= */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.settings-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* Podbicie kontrastu tła pól oraz płynny glow na focus zamiast topornego outline */
+.settings-form input,
+.settings-form select {
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--color-white);
+  background: rgba(0, 0, 0, 0.2); /* Głębokie, ciemne tło podbija profesjonalizm motywu */
+  transition: all var(--transition-fast) ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.settings-form input:focus,
+.settings-form select:focus {
+  outline: none;
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Styl dla głównego przycisku zapisu (na podstawie Twojego screenshota) */
+.settings-form button[type="submit"] {
+  background: var(--color-accent-blue);
+  color: var(--color-white);
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition-fast) ease;
+  margin-top: 8px;
+}
+
+.settings-form button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+/* =========================================
+   PREFERENCJE I PRZEŁĄCZNIKI (TOGGLES)
+   ========================================= */
+.preference-group {
+  margin-bottom: 32px;
+}
+
+.preference-group h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  font-size: 0.925rem;
+  color: var(--color-text-light);
+  transition: color var(--transition-fast);
+}
+
+.toggle-label:hover {
+  color: var(--color-white);
+}
+
+.toggle-label input {
+  display: none;
+}
+
+/* Minimalistyczny, iOS-owy design przełącznika */
+.toggle-switch {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  position: relative;
+  transition: all var(--transition-fast) ease;
+}
+
+.toggle-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-text-light);
+  border-radius: 50%;
+  transition: transform var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-label input:checked + .toggle-switch {
+  background: var(--color-accent-blue);
+  border-color: transparent;
+}
+
+.toggle-label input:checked + .toggle-switch::after {
+  transform: translateX(20px);
+  background: var(--color-white);
+}
+
+/* =========================================
+   LISTA ZESPOŁU (TEAM MEMBERS)
+   ========================================= */
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast) ease;
+}
+
+.team-member:hover {
+  border-color: var(--color-text-muted);
+}
+
+.team-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(33, 150, 243, 0.1);
+  color: var(--color-accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(33, 150, 243, 0.2);
+}
+
+.team-info {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr; /* Idealne wyrównanie danych w linii */
+  align-items: center;
+  gap: 16px;
+}
+
+.team-name {
+  font-weight: 600;
+  font-size: 0.925rem;
+  color: var(--color-white);
+}
+
+.team-role {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.team-email {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+/* =========================================
+   BEZPIECZEŃSTWO (SECURITY PANEL)
+   ========================================= */
+.security-info {
+  margin-top: 16px;
+  padding: 20px;
+  background: rgba(255, 152, 0, 0.04);
+  border: 1px solid rgba(255, 152, 0, 0.15);
+  border-radius: var(--radius-lg);
+}
+
+.security-info p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #ffb74d; /* Dopasowany pod ciemny motyw ostrzegawczy */
+  line-height: 1.6;
+}
+
+/* =========================================
+   RESPONSYWNOŚĆ (MEDIA QUERIES)
+   ========================================= */
+@media (max-width: 900px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .settings-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: 12px;
+    gap: 8px;
+  }
+
+  .settings-tab {
+    white-space: nowrap;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .team-info {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  
+  .team-email {
+    text-align: left;
+    font-size: 0.8rem;
+  }
+}

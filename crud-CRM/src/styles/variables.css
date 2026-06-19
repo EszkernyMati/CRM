@@ -1,0 +1,36 @@
+:root {
+  --color-primary-dark-navy: hsl(240, 10%, 4%);
+  --color-secondary-grey-blue: hsl(240, 10%, 8%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-background-light: hsl(240, 10%, 12%);
+  --color-text-dark: hsl(240, 10%, 4%);
+  --color-text-light: hsl(0, 0%, 100%);
+  --color-text-muted: hsl(240, 5%, 70%);
+  --color-accent-blue: hsl(221, 83%, 53%);
+  --color-accent-blue-hover: hsl(221, 83%, 45%);
+  --color-accent-blue-light: hsla(221, 83%, 53%, 0.15);
+  --color-status-success: hsl(142, 71%, 45%);
+  --color-status-success-light: hsla(142, 71%, 45%, 0.15);
+  --color-status-error: hsl(348, 83%, 47%);
+  --color-status-error-light: hsla(348, 83%, 47%, 0.15);
+  --color-status-warning: hsl(43, 96%, 56%);
+  --color-status-warning-light: hsla(43, 96%, 56%, 0.15);
+  --color-status-info: hsl(214, 95%, 60%);
+  --color-status-info-light: hsla(214, 95%, 60%, 0.15);
+  --color-border-subtle: hsl(240, 10%, 22%);
+  --shadow-color: hsla(0, 0%, 0%, 0.5);
+  --shadow-color-strong: hsla(0, 0%, 0%, 0.8);
+  --shadow-light: 0 1px 3px var(--shadow-color);
+  --shadow-mid: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+  --shadow-strong: 0 10px 15px -3px var(--shadow-color-strong), 0 4px 6px -4px var(--shadow-color);
+  --color-group-change-blue: hsl(221, 83%, 53%);
+  --color-group-change-blue-hover: hsl(221, 83%, 45%);
+  --header-height: 64px;
+  --footer-height: 52px;
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition-fast: 0.15s ease-in-out;
+}

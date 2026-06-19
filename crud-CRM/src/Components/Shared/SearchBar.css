@@ -1,0 +1,64 @@
+@import "../../styles/variables.css";
+
+.search-bar {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 14px 10px 38px; /* Lekko zwiększony padding dla lepszego balansu optycznego */
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-secondary-grey-blue); /* Solidne, ciemne tło zamiast przezroczystej bieli */
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), outline var(--transition-fast);
+}
+
+.search-bar input::placeholder {
+  color: var(--color-text-muted); /* Wyraźniejszy, bardziej czytelny placeholder */
+  margin-left: 30PX;
+}
+
+.search-bar input:focus {
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: -1px;
+  border-color: transparent;
+  background: var(--color-background-light); /* Subtelne rozjaśnienie tła podczas pisania */
+}
+
+.search-icon {
+  
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.search-bar input:focus + .search-icon {
+  color: var(--color-accent-blue); /* Akcent kolorystyczny dla ikonki przy aktywnym polu */
+}
+
+/* =========================================
+   PAGE SEARCH (Wyszukiwarka wewnątrz podstron)
+   ========================================= */
+/* Usunięte wymuszenie białego tła i ciemnego tekstu - teraz zachowuje spójny, ciemny motyw */
+.page-search .search-bar input {
+  background: var(--color-secondary-grey-blue);
+  color: var(--color-text-light);
+  border-color: var(--color-border-subtle);
+}
+
+.page-search .search-bar input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.page-search .search-icon {
+  color: var(--color-text-muted);
+}

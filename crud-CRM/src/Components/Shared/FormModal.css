@@ -1,0 +1,63 @@
+@import "../../styles/variables.css";
+
+.form-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-light); /* Większy kontrast dla etykiet */
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  color: var(--color-text-light); /* Zmiana z ciemnego na jasny tekst */
+  background: var(--color-secondary-grey-blue); /* Ciemne, eleganckie tło zamiast czystej bieli */
+  font-family: inherit;
+  transition: border-color var(--transition-fast), outline var(--transition-fast);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: -1px;
+  border-color: transparent; /* Ostry, kontrastowy focus ring */
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.form-actions .btn {
+  padding: 10px 18px; /* Dopasowanie optyczne do wielkości pól formularza */
+}
