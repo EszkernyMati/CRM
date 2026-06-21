@@ -19,6 +19,13 @@ const Header = ({ onMenuToggle }) => {
     navigate("/login", { replace: true });
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (!search.trim()) return;
+    
+    navigate(`/search?q=${encodeURIComponent(search.trim())}`);
+  };
+
   return (
     <header className="top-title">
       <div className="header-left">
@@ -26,10 +33,18 @@ const Header = ({ onMenuToggle }) => {
           <span className="menu-icon" />
         </button>
         <Link to="/">
-          <h1>CRM</h1>
+          <h1>Twoja Firma</h1>
         </Link>
       </div>
-      <SearchBar value={search} onChange={setSearch} placeholder="Szukaj kontaktów, firm, transakcji..." />
+
+      <form onSubmit={handleSearchSubmit} className="header-search-form" style={{ flex: 1, maxWidth: "500px", margin: "0 20px" }}>
+        <SearchBar 
+          value={search} 
+          onChange={setSearch} 
+          placeholder="Szukaj kontaktów, firm, transakcji..." 
+        />
+      </form>
+
       <div className="header-actions">
         <button className="header-action-btn" aria-label="Powiadomienia">
           <FaBell />

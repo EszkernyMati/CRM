@@ -62,7 +62,7 @@
 .contact-modal-role {
   margin: 0;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-text-light);
 }
 
 .contact-modal-company {

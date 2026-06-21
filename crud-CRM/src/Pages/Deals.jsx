@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit } from "react-icons/fa";
+import { FiTrash2 } from "react-icons/fi";
 import { deals as initialDeals, dealStages, formatCurrency, formatDate } from "../data/mockData";
 import FormModal from "../Components/Shared/FormModal";
 import { useCRUD } from "../hooks/useCRUD";
@@ -11,6 +12,7 @@ const Deals = () => {
   const [view, setView] = useState("kanban");
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [selectedDeal, setSelectedDeal] = useState(null); // Stan do przechowywania podglądu szczegółów
   const { showToast } = useToast();
 
   const dealsByStage = dealStages.map((stage) => ({
@@ -107,7 +109,11 @@ const Deals = () => {
               </div>
               <div className="kanban-cards">
                 {stage.deals.map((deal) => (
-                  <div key={deal.id} className="deal-card">
+                  <div 
+                    key={deal.id} 
+                    className="deal-card"
+                    onClick={() => setSelectedDeal(deal)} // Wyświetlenie szczegółów po kliknięciu w kartę
+                  >
                     <h4>{deal.title}</h4>
                     <p className="deal-company">{deal.company}</p>
                     <p className="deal-value">{formatCurrency(deal.value)}</p>
@@ -121,7 +127,7 @@ const Deals = () => {
                       <span>{deal.owner.split(" ")[0]}</span>
                       <span>{formatDate(deal.closeDate)}</span>
                     </div>
-                    <div className="deal-actions">
+                    <div className="deal-actions" onClick={(e) => e.stopPropagation()}> {/* Zatrzymanie bąbelkowania kliknięcia */}
                       <button
                         className="btn-icon"
                         onClick={() => {
@@ -138,7 +144,7 @@ const Deals = () => {
                           showToast("Transakcja usunięta.", "success");
                         }}
                       >
-                        <FaTrash />
+                        <FiTrash2 />
                       </button>
                     </div>
                   </div>
@@ -167,7 +173,11 @@ const Deals = () => {
                 {deals.map((deal) => {
                   const stage = dealStages.find((s) => s.key === deal.stage);
                   return (
-                    <tr key={deal.id}>
+                    <tr 
+                      key={deal.id} 
+                      className="table-row-clickable"
+                      onClick={() => setSelectedDeal(deal)} // Wyświetlenie szczegółów po kliknięciu w wiersz
+                    >
                       <td className="cell-name">{deal.title}</td>
                       <td>{deal.company}</td>
                       <td>{formatCurrency(deal.value)}</td>
@@ -175,7 +185,7 @@ const Deals = () => {
                       <td>{deal.probability}%</td>
                       <td>{formatDate(deal.closeDate)}</td>
                       <td>{deal.owner}</td>
-                      <td>
+                      <td onClick={(e) => e.stopPropagation()}> {/* Zatrzymanie bąbelkowania kliknięcia */}
                         <div className="table-actions">
                           <button className="btn-icon" onClick={() => { setEditingId(deal.id); setFormOpen(true); }}>
                             <FaEdit />
@@ -187,7 +197,7 @@ const Deals = () => {
                               showToast("Transakcja usunięta.", "success");
                             }}
                           >
-                            <FaTrash />
+                            <FiTrash2 />
                           </button>
                         </div>
                       </td>
@@ -200,6 +210,7 @@ const Deals = () => {
         </div>
       )}
 
+      {/* MODAL EDYCJI / DODAWANIA */}
       <FormModal
         isOpen={formOpen}
         onClose={() => {
@@ -212,6 +223,54 @@ const Deals = () => {
         initialData={editingId ? deals.find((d) => d.id === editingId) || {} : {}}
         submitLabel={editingId ? "Zapisz" : "Dodaj"}
       />
+
+      {/* NOWOŚĆ: MODAL SZCZEGÓŁÓW (DOKŁADNIE WEDŁUG WYGLĄDU Z GRAPHICS) */}
+      {selectedDeal && (
+        <div className="modal-overlay" onClick={() => setSelectedDeal(null)}>
+          <div className="modal-window-dark" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header-dark">
+              <h3>{selectedDeal.title}</h3>
+              <button className="modal-close-btn-dark" onClick={() => setSelectedDeal(null)}>×</button>
+            </div>
+
+            <div className="modal-profile-section">
+              <div className="profile-avatar-blue">
+                {selectedDeal.company ? selectedDeal.company.substring(0, 2).toUpperCase() : "TR"}
+              </div>
+              <div className="profile-info-block">
+                <h4>{selectedDeal.company}</h4>
+                <p>Wartość: {formatCurrency(selectedDeal.value)}</p>
+              </div>
+            </div>
+
+            <div className="modal-details-grid">
+              <div className="details-row">
+                <span className="details-label">Etap</span>
+                <div>
+                  <span className="badge-active-green">
+                    {dealStages.find((s) => s.key === selectedDeal.stage)?.label || selectedDeal.stage}
+                  </span>
+                </div>
+              </div>
+
+              <div className="details-row">
+                <span className="details-label">Prawdopodobieństwo</span>
+                <span className="details-value">{selectedDeal.probability}%</span>
+              </div>
+
+              <div className="details-row">
+                <span className="details-label">Opiekun</span>
+                <span className="details-value">{selectedDeal.owner}</span>
+              </div>
+
+              <div className="details-row">
+                <span className="details-label">Data zamknięcia</span>
+                <span className="details-value">{formatDate(selectedDeal.closeDate)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

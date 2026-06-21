@@ -53,7 +53,7 @@ const Login = () => {
     <div className="login-screen">
       <div className="login-card">
         <div className="login-brand">
-          <span className="login-logo">CRM</span>
+          <span className="login-logo">Twoja Firma</span>
           <p className="login-tagline">Zaloguj się do panelu zarządzania klientami</p>
         </div>
 

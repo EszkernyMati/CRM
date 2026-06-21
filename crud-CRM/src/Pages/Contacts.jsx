@@ -212,14 +212,9 @@ const Contacts = () => {
               <span className="detail-label">Ostatni kontakt</span>
               <span className="detail-value">{formatDate(selected.lastContact)}</span>
             </div>
-            <div className="modal-actions">
-              <button className="btn btn-secondary btn-sm">
-                <FaEnvelope /> Wyślij email
-              </button>
-              <button className="btn btn-primary btn-sm">
-                <FaPhone /> Zadzwoń
-              </button>
-            </div>
+            
+             
+            
           </>
         )}
       </Modal>

@@ -1,3 +1,4 @@
+/* --- KANBAN LAYOUT --- */
 .deals-kanban {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -5,109 +6,318 @@
   align-items: start;
 }
 
+.kanban-column.card {
+  background: var(--color-primary-dark-navy);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0;
+  overflow: hidden;
+}
+
 .kanban-column-header {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 16px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
   border-bottom: 1px solid var(--color-border-subtle);
+  background: hsla(0, 0%, 100%, 0.02);
 }
 
 .kanban-column-header h3 {
   margin: 0;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--color-text-light);
+  letter-spacing: -0.01em;
 }
 
 .kanban-total {
   font-size: 0.8rem;
   color: var(--color-accent-blue);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .kanban-cards {
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
+/* --- LEADS / DEALS CARD --- */
 .deal-card {
-  padding: 14px;
-  background: var(--color-background-light);
-  border-radius: var(--radius-sm);
+  padding: 16px;
+  background: var(--color-secondary-grey-blue);
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-border-subtle);
   cursor: pointer;
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
 }
 
 .deal-card:hover {
-  box-shadow: var(--shadow-light);
-  transform: translateY(-1px);
+  border-color: hsl(240, 10%, 32%); /* Subtelne rozjaśnienie ramki przy hover */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
 }
 
 .deal-card h4 {
-  margin: 0 0 4px;
-  font-size: 0.9rem;
+  margin: 0 0 6px;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--color-text-light);
 }
 
 .deal-company {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   font-size: 0.8rem;
   color: var(--color-text-muted);
+  font-weight: 500;
 }
 
 .deal-value {
-  margin: 0 0 10px;
-  font-size: 1rem;
+  margin: 0 0 12px;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--color-text-light);
 }
 
+/* --- PROGRESS BAR --- */
 .deal-progress {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .deal-progress-bar {
   flex: 1;
   height: 6px;
-  background: var(--color-border-subtle);
-  border-radius: 3px;
+  background: var(--color-primary-dark-navy);
+  border-radius: 10px;
   overflow: hidden;
 }
 
 .deal-progress-fill {
   height: 100%;
   background: var(--color-accent-blue);
-  border-radius: 3px;
-  transition: width 0.4s ease;
+  border-radius: 10px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .deal-probability {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-muted);
-  min-width: 32px;
+  min-width: 28px;
+  text-align: right;
 }
 
 .deal-footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 0.75rem;
   color: var(--color-text-muted);
+  border-top: 1px solid hsla(0, 0%, 100%, 0.03);
+  padding-top: 12px;
+  margin-bottom: 12px;
 }
 
-@media (max-width: 1100px) {
+.deal-footer span:first-child {
+  font-weight: 600;
+  color: hsla(0, 0%, 100%, 0.7);
+}
+
+/* --- PRZYCISKI AKCJI (ZGODNE Z GRAFIKAMI) --- */
+.deal-actions, .table-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-icon {
+  background: var(--color-secondary-grey-blue);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+  border-color: hsl(240, 10%, 35%);
+  color: var(--color-text-light);
+  background: var(--color-background-light);
+}
+
+/* Przycisk usuwania (dokładnie jak ciemnoczerwony kwadrat z image_17cec1.png) */
+.btn-icon.btn-icon-danger {
+  border: 1px solid rgba(244, 63, 94, 0.2); /* Lekka czerwona obwódka */
+  background: rgba(244, 63, 94, 0.03);     /* Ledwo widoczne czerwone tło */
+  color: var(--color-status-error);
+}
+
+.btn-icon.btn-icon-danger:hover {
+  background: var(--color-status-error-light); /* Wyraźniejsze, ale wciąż ciemne czerwone tło */
+  border-color: var(--color-status-error);
+  color: var(--color-text-light);
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.2);
+}
+
+/* --- INTERFEJS TABELI --- */
+.table-row-clickable {
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.table-row-clickable:hover {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* --- NOWOŚĆ: CSS MODALA SZCZEGÓŁÓW (ZGODNIE Z GRAFIKAMI) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-window-dark {
+  background-color: var(--color-primary-dark-navy);
+  color: var(--color-text-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  width: 100%;
+  max-width: 520px;
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+
+.modal-header-dark {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.modal-header-dark h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.modal-close-btn-dark {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.modal-close-btn-dark:hover {
+  color: var(--color-text-light);
+}
+
+.modal-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+}
+
+.profile-avatar-blue {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-accent-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
+}
+
+.profile-info-block h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.profile-info-block p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.modal-details-grid {
+  padding: 0 24px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.details-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.details-label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.details-value {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.badge-active-green {
+  background-color: var(--color-status-success-light);
+  color: var(--color-status-success);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/* --- RESPONSIVNESS --- */
+@media (max-width: 1200px) {
   .deals-kanban {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
   .deals-kanban {
     grid-template-columns: 1fr;
   }

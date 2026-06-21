@@ -1,0 +1,138 @@
+@import "../../styles/variables.css";
+
+/* Główny kontener strony wyników */
+.search-results-page {
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Układ siatki dla sekcji wyszukiwania */
+.search-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Identyczny odstęp jak w "Ostatnia aktywność" */
+  margin-top: 24px;
+}
+
+/* Karta danej sekcji - Dokładnie taki look jak karty na pulpicie */
+.search-section {
+  background: #0d1117; /* Kolor kart z Twojego screena */
+  border: 1px solid #1f293d; /* Subtelna, ciemnoniebieska ramka */
+  border-radius: 8px; /* Taki sam promień jak reszta kart */
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  animation: searchSectionIn 0.25s ease-out both;
+}
+
+/* Nagłówek sekcji wyszukiwania */
+.search-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.01);
+  border-bottom: 1px solid #1f293d;
+}
+
+.search-section-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff; /* Czysta biel dla głównych tytułów */
+}
+
+/* Wskaźniki kolorów z boku - dopasowane do akcentów w Twoim CRM */
+.search-section:has(.icon-lead) { border-left: 3px solid #2196f3; }    /* Niebieski Inbound */
+.search-section:has(.icon-deal) { border-left: 3px solid #ff9800; }    /* Pomarańczowy Negocjacje */
+.search-section:has(.icon-task) { border-left: 3px solid #4caf50; }    /* Zielony Zamknięte */
+.search-section:has(.icon-contact) { border-left: 3px solid #9c27b0; } /* Fiolet dla kontaktów */
+
+/* Kolory ikon */
+.search-section-header .icon-lead { color: #2196f3; }
+.search-section-header .icon-deal { color: #ff9800; }
+.search-section-header .icon-task { color: #4caf50; }
+.search-section-header .icon-contact { color: #e040fb; }
+
+/* Lista wyników */
+.search-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Pojedynczy wiersz wyniku (Link) */
+.search-item a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  text-decoration: none;
+  border-bottom: 1px solid #1f293d;
+  transition: background-color 0.15s ease, padding-left 0.15s ease;
+}
+
+.search-item:last-child a {
+  border-bottom: none;
+}
+
+/* Efekt najechania - idealnie zgrany z ciemnym UI */
+.search-item a:hover {
+  background: rgba(255, 255, 255, 0.02);
+  padding-left: 26px; /* Delikatne, eleganckie wysunięcie */
+}
+
+/* Tytuł pojedynczego wyniku */
+.search-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Podpis / Metadane - stonowany błękit/szarość jak opisy pod wykresami */
+.search-item-meta {
+  font-size: 0.8rem;
+  color: #94a3b8; 
+}
+
+/* Stan pusty / brak wyników */
+.search-empty {
+  padding: 32px;
+  text-align: center;
+  background: #0d1117;
+  border: 1px solid #1f293d;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.search-empty strong {
+  color: #ffffff;
+}
+
+/* Szybka, natywna animacja pojawiania się */
+@keyframes searchSectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .search-results-page {
+    padding: 16px;
+  }
+  
+  .search-item a {
+    padding: 14px 16px;
+  }
+  
+  .search-item a:hover {
+    padding-left: 20px;
+  }
+}

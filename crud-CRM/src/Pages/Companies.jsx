@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPlus, FaExternalLinkAlt, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaExternalLinkAlt, FaEdit, FaTrash, FaInfoCircle, FaBuilding, FaUsers, FaHandshake } from "react-icons/fa";
 import Modal from "../Components/Shared/Modal";
 import FormModal from "../Components/Shared/FormModal";
 import SearchBar from "../Components/Shared/SearchBar";
@@ -28,6 +28,7 @@ const Companies = () => {
   const [editingId, setEditingId] = useState(null);
   const { showToast } = useToast();
 
+  // Filtrowanie firm po nazwie, branży lub mieście
   const filtered = companies.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -47,7 +48,7 @@ const Companies = () => {
       deals: 0,
       status: data.status || "prospect",
     });
-    showToast("Firma dodana.", "success");
+    showToast("Firma została dodana.", "success");
     setFormOpen(false);
   };
 
@@ -61,7 +62,7 @@ const Companies = () => {
       city: data.city,
       status: data.status,
     });
-    showToast("Firma zaktualizowana.", "success");
+    showToast("Dane firmy zostały zaktualizowane.", "success");
     setFormOpen(false);
     setEditingId(null);
     setSelected(null);
@@ -88,6 +89,7 @@ const Companies = () => {
 
   return (
     <div className="page-content">
+      {/* NAGŁÓWEK */}
       <div className="page-header-row">
         <div>
           <h1 className="page-title">Firmy</h1>
@@ -104,36 +106,53 @@ const Companies = () => {
         </button>
       </div>
 
+      {/* WYSZUKIWARKA */}
       <div className="page-search">
-        <SearchBar value={search} onChange={setSearch} placeholder="Szukaj po nazwie, branży lub mieście..." />
+        <SearchBar 
+          value={search} 
+          onChange={setSearch} 
+          placeholder="Szukaj po nazwie, branży lub mieście..." 
+        />
       </div>
 
+      {/* SIATKA FIRM */}
       <div className="companies-grid">
         {filtered.map((company) => (
-          <div key={company.id} className="company-card card">
+          <div 
+            key={company.id} 
+            className="company-card card" 
+            onClick={() => setSelected(company)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="company-card-header">
-              <div className="company-logo">{company.name.charAt(0)}</div>
+              <div className="company-logo">
+                {company.name.charAt(0).toUpperCase()}
+              </div>
               <span className={`badge ${statusBadge[company.status]}`}>
                 {statusLabel[company.status]}
               </span>
             </div>
+            
             <h3>{company.name}</h3>
             <p className="company-industry">{company.industry} · {company.city}</p>
+            
             <div className="company-stats">
               <div>
-                <span className="company-stat-value">{company.employees}</span>
+                <span className="company-stat-value"><FaUsers size={12} /> {company.employees}</span>
                 <span className="company-stat-label">Pracowników</span>
               </div>
               <div>
-                <span className="company-stat-value">{company.contacts}</span>
+                <span className="company-stat-value"><FaBuilding size={12} /> {company.contacts}</span>
                 <span className="company-stat-label">Kontaktów</span>
               </div>
               <div>
-                <span className="company-stat-value">{company.deals}</span>
+                <span className="company-stat-value"><FaHandshake size={12} /> {company.deals}</span>
                 <span className="company-stat-label">Transakcji</span>
               </div>
             </div>
-            <div className="company-card-actions">
+            
+            {/* PRZYCISKI AKCJI - stopPropagation zapobiega otwarciu modalu przy kliknięciu w przycisk */}
+            <div className="company-card-actions" onClick={(e) => e.stopPropagation()}>
               <button
                 className="btn-icon"
                 onClick={() => {
@@ -147,8 +166,10 @@ const Companies = () => {
               <button
                 className="btn-icon btn-icon-danger"
                 onClick={() => {
-                  removeCompany(company.id);
-                  showToast("Firma usunięta.", "success");
+                  if(window.confirm("Czy na pewno chcesz usunąć tę firmę?")) {
+                    removeCompany(company.id);
+                    showToast("Firma została usunięta.", "success");
+                  }
                 }}
                 title="Usuń"
               >
@@ -159,13 +180,15 @@ const Companies = () => {
                 onClick={() => setSelected(company)}
                 title="Szczegóły"
               >
-                📋
+                <FaInfoCircle />
               </button>
             </div>
           </div>
         ))}
+        {filtered.length === 0 && <p className="no-results">Nie znaleziono żadnych firm.</p>}
       </div>
 
+      {/* MODAL SZCZEGÓŁÓW */}
       <Modal
         isOpen={!!selected && !formOpen}
         onClose={() => setSelected(null)}
@@ -173,26 +196,31 @@ const Companies = () => {
         size="md"
       >
         {selected && (
-          <>
+          <div className="company-details">
             <div className="detail-grid">
               <span className="detail-label">Branża</span>
               <span className="detail-value">{selected.industry}</span>
+              
               <span className="detail-label">Miasto</span>
               <span className="detail-value">{selected.city}</span>
+              
               <span className="detail-label">Przychód</span>
               <span className="detail-value">{selected.revenue}</span>
+              
               <span className="detail-label">Pracownicy</span>
               <span className="detail-value">{selected.employees}</span>
+              
               <span className="detail-label">Strona www</span>
               <span className="detail-value">
                 {selected.website ? (
                   <a href={`https://${selected.website}`} target="_blank" rel="noreferrer" className="link-external">
-                    {selected.website} <FaExternalLinkAlt />
+                    {selected.website} <FaExternalLinkAlt size={12} />
                   </a>
                 ) : (
                   "-"
                 )}
               </span>
+              
               <span className="detail-label">Status</span>
               <span className="detail-value">
                 <span className={`badge ${statusBadge[selected.status]}`}>
@@ -200,10 +228,14 @@ const Companies = () => {
                 </span>
               </span>
             </div>
-          </>
+            <div style={{ marginTop: '20px', textAlign: 'right' }}>
+               <button className="btn btn-secondary" onClick={() => setSelected(null)}>Zamknij</button>
+            </div>
+          </div>
         )}
       </Modal>
 
+      {/* MODAL FORMULARZA */}
       <FormModal
         isOpen={formOpen}
         onClose={() => {
@@ -211,10 +243,10 @@ const Companies = () => {
           setEditingId(null);
         }}
         onSubmit={editingId ? handleEditCompany : handleAddCompany}
-        title={editingId ? "Edytuj firmę" : "Dodaj nową firmę"}
+        title={editingId ? "Edytuj dane firmy" : "Dodaj nową firmę"}
         fields={companyFields}
         initialData={editingId ? companies.find((c) => c.id === editingId) || {} : {}}
-        submitLabel={editingId ? "Zapisz" : "Dodaj"}
+        submitLabel={editingId ? "Zapisz zmiany" : "Dodaj firmę"}
       />
     </div>
   );

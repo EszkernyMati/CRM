@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { leads as initialLeads, leadStages } from "../data/mockData";
 import FormModal from "../Components/Shared/FormModal";
+import Modal from "../Components/Shared/Modal";
 import { useCRUD } from "../hooks/useCRUD";
 import { useToast } from "../context/ToastContext";
 import "./Leads.css";
@@ -11,6 +12,7 @@ const Leads = () => {
   const [view, setView] = useState("pipeline");
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [selectedLead, setSelectedLead] = useState(null);
   const { showToast } = useToast();
 
   const leadsByStage = leadStages.map((stage) => ({
@@ -75,7 +77,7 @@ const Leads = () => {
             className={`btn btn-sm ${view === "pipeline" ? "btn-primary" : "btn-secondary"}`}
             onClick={() => setView("pipeline")}
           >
-            Pipeline
+            Kanban
           </button>
           <button
             className={`btn btn-sm ${view === "table" ? "btn-primary" : "btn-secondary"}`}
@@ -105,7 +107,12 @@ const Leads = () => {
               </div>
               <div className="pipeline-cards">
                 {stage.leads.map((lead) => (
-                  <div key={lead.id} className="lead-card">
+                  <div 
+                    key={lead.id} 
+                    className="lead-card" 
+                    onClick={() => setSelectedLead(lead)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <h4>{lead.name}</h4>
                     <p className="lead-contact">{lead.contact}</p>
                     <div className="lead-meta">
@@ -121,7 +128,8 @@ const Leads = () => {
                     <div className="lead-actions">
                       <button
                         className="btn-icon"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation();
                           setEditingId(lead.id);
                           setFormOpen(true);
                         }}
@@ -130,7 +138,8 @@ const Leads = () => {
                       </button>
                       <button
                         className="btn-icon btn-icon-danger"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation();
                           removeLead(lead.id);
                           showToast("Lead usunięty.", "success");
                         }}
@@ -168,7 +177,13 @@ const Leads = () => {
                   const stage = leadStages.find((s) => s.key === lead.stage);
                   return (
                     <tr key={lead.id}>
-                      <td className="cell-name">{lead.name}</td>
+                      <td 
+                        className="cell-name" 
+                        onClick={() => setSelectedLead(lead)}
+                        style={{ cursor: "pointer", color: "var(--primary-color)", fontWeight: "500" }}
+                      >
+                        {lead.name}
+                      </td>
                       <td>{lead.contact}</td>
                       <td>{lead.source}</td>
                       <td><span className={`badge ${stage?.color}`}>{stage?.label}</span></td>
@@ -179,7 +194,8 @@ const Leads = () => {
                         <div className="table-actions">
                           <button
                             className="btn-icon"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               setEditingId(lead.id);
                               setFormOpen(true);
                             }}
@@ -188,7 +204,8 @@ const Leads = () => {
                           </button>
                           <button
                             className="btn-icon btn-icon-danger"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               removeLead(lead.id);
                               showToast("Lead usunięty.", "success");
                             }}
@@ -205,6 +222,45 @@ const Leads = () => {
           </div>
         </div>
       )}
+
+      <Modal
+        isOpen={!!selectedLead}
+        onClose={() => setSelectedLead(null)}
+        title="Szczegóły leada"
+        size="md"
+      >
+        {selectedLead && (
+          <div className="lead-details-modal">
+  <h2>{selectedLead.name}</h2>
+  <table className="lead-details-table">
+    <tbody>
+      {[
+        { label: "Kontakt", value: selectedLead.contact },
+        { label: "Źródło", value: selectedLead.source },
+        { 
+          label: "Etap", 
+          value: <span className={`badge ${leadStages.find(s => s.key === selectedLead.stage)?.color}`}>{leadStages.find(s => s.key === selectedLead.stage)?.label}</span> 
+        },
+        { label: "Score", value: `${selectedLead.score}%` },
+        { label: "Wartość finansowa", value: selectedLead.value },
+        { label: "Opiekun leada", value: selectedLead.owner },
+        { label: "Data utworzenia", value: selectedLead.created || "Brak danych" }
+      ].map((row, index) => (
+        <tr key={index} className="lead-details-row">
+          <td className="lead-details-label">{row.label}</td>
+          <td className="lead-details-value">{row.value}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <div className="lead-details-actions">
+    <button className="btn btn-secondary" onClick={() => setSelectedLead(null)}>
+      Zamknij
+    </button>
+  </div>
+</div>
+        )}
+      </Modal>
 
       <FormModal
         isOpen={formOpen}

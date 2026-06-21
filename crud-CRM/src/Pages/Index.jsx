@@ -12,6 +12,7 @@ import Tasks from "./Tasks";
 import Calendar from "./Calendar";
 import Reports from "./Reports";
 import Settings from "./Settings";
+import SearchResults from "../Components/Search/SearchResults"; 
 
 const App = () => {
   return (
@@ -35,6 +36,10 @@ const App = () => {
           <Route path="calendar" element={<Calendar />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
+          
+          {/* 2. DODANA ŚCIEŻKA WYSZUKIWARKI */}
+          <Route path="search" element={<SearchResults />} />
+          
         </Route>
       </Routes>
     </LoadingScreen>

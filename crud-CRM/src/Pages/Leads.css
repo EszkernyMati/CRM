@@ -133,3 +133,40 @@
   gap: 4px;
   margin-top: 8px;
 }
+
+.lead-details-modal {
+  padding: 10px 0;
+}
+
+.lead-details-modal h2 {
+  margin-bottom: 20px;
+  color: var(--color-text-light);
+  font-size: 1.5rem;
+}
+
+.lead-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lead-details-row {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.lead-details-label {
+  padding: 12px 0;
+  font-weight: 600;
+  color: #4b5563;
+  width: 40%;
+}
+
+.lead-details-value {
+  padding: 12px 0;
+  color: var(--color-text-light);
+}
+
+.lead-details-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+}

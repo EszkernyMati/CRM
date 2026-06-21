@@ -62,7 +62,7 @@ const Calendar = () => {
   }
 
   const upcoming = calendarEvents
-    .filter((e) => new Date(e.date) >= new Date("2025-06-18"))
+    .filter((e) => new Date(e.date) >= new Date("2026-06-18"))
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
