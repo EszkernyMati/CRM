@@ -8,7 +8,7 @@ import "./styles/global.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/CRM">
+    <BrowserRouter basename="/CRM/">
       <ToastProvider>
         <AuthProvider>
           <App />
